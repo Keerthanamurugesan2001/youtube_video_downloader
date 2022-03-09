@@ -1,0 +1,36 @@
+import pytube
+from tkinter import *
+from functools import partial
+
+
+def main():
+    r = display()
+    r.mainloop()
+
+
+def display():
+    r = Tk()
+    r.title("YouTube video downloader")
+    r.geometry("300x300")
+    f = Frame(r)
+    entry = Entry(f, bg="white", bd=5)
+    button = Button(f, text="Download", bg="green", command=partial(get_url, entry))
+
+    entry.pack()
+    button.pack()
+    f.pack()
+    return r
+
+
+def get_url(value):
+    print(value.get().strip())
+    video_url=value.get().strip()
+    youtube = pytube.YouTube(video_url)
+    video = youtube.streams.first()
+    print("video start downloading..........")
+    video.download('C:/Users/ADMIN/Videos/Captures/')
+    print("video downloaded")
+
+
+if __name__ == '__main__':
+    main()
